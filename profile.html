@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Profile — Your Name</title>
+    <meta name="description" content="Profile page for Your Name — developer, designer, maker." />
+    <style>
+        :root{
+            --bg:#0f1724; --card:#0b1220; --muted:#9aa7bf; --accent:#60a5fa; --glass:rgba(255,255,255,0.03);
+            --radius:12px; --maxw:900px; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+            color-scheme: dark;
+        }
+        *{box-sizing:border-box}
+        html,body{height:100%}
+        body{
+            margin:0; padding:32px; background:
+            radial-gradient(1200px 600px at 10% 10%, rgba(96,165,250,0.06), transparent 8%),
+            radial-gradient(1000px 500px at 90% 90%, rgba(99,102,241,0.04), transparent 8%),
+            var(--bg); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+            display:flex; align-items:center; justify-content:center;
+        }
+
+        .wrap{width:100%; max-width:var(--maxw);}
+        .card{
+            display:grid; grid-template-columns:260px 1fr; gap:24px;
+            background:linear-gradient(180deg,var(--card), rgba(255,255,255,0.01));
+            border-radius:var(--radius); padding:22px; box-shadow:0 6px 30px rgba(2,6,23,0.6);
+        }
+
+        /* Left column */
+        .aside{background:linear-gradient(180deg,var(--glass),transparent); padding:18px; border-radius:10px; display:flex; flex-direction:column; gap:14px; align-items:center;}
+        .avatar{
+            width:120px; height:120px; border-radius:50%; background:linear-gradient(135deg,var(--accent), #7c3aed);
+            display:grid; place-items:center; box-shadow:0 6px 18px rgba(2,6,23,0.6); color:white; font-weight:700; font-size:36px;
+        }
+        .name{font-size:18px; font-weight:700; color:#fff; text-align:center;}
+        .role{font-size:13px; color:var(--muted); text-align:center;}
+        .contact{width:100%; display:flex; flex-direction:column; gap:8px; margin-top:4px;}
+        .contact a{display:flex; gap:10px; align-items:center; text-decoration:none; color:var(--muted); font-size:13px; padding:8px; border-radius:8px;}
+        .contact a:hover{background:rgba(255,255,255,0.02); color:#fff;}
+        .btn{display:inline-flex; gap:8px; align-items:center; justify-content:center; background:var(--accent); color:#04263b; padding:8px 12px; border-radius:10px; font-weight:600; text-decoration:none;}
+        .skills{width:100%; display:flex; flex-direction:column; gap:8px;}
+        .skill{display:flex; flex-direction:column; gap:6px;}
+        .skill .bar{height:8px; background:rgba(255,255,255,0.04); border-radius:999px; overflow:hidden;}
+        .skill .fill{height:100%; background:linear-gradient(90deg,var(--accent), #7c3aed); border-radius:999px;}
+
+        /* Right column */
+        .main{padding:6px 6px 6px 0; color:var(--muted);}
+        h2{margin:0 0 8px 0; color:#fff; font-size:18px;}
+        p.lead{margin:0 0 16px 0; line-height:1.5; color:var(--muted);}
+        .section{background:transparent; margin-bottom:14px; padding:12px; border-radius:10px;}
+        .list{display:flex; flex-direction:column; gap:10px;}
+        .item{padding:10px; border-radius:8px; background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent); display:flex; justify-content:space-between; gap:12px; align-items:center;}
+        .meta{font-size:13px; color:var(--muted);}
+        .tags{display:flex; gap:8px; flex-wrap:wrap;}
+        .tag{background:rgba(255,255,255,0.03); color:var(--muted); padding:6px 8px; border-radius:999px; font-size:12px;}
+
+        footer{display:flex; justify-content:space-between; gap:12px; align-items:center; margin-top:6px; color:var(--muted); font-size:13px;}
+        .socials{display:flex; gap:8px;}
+        .icon{width:36px; height:36px; display:grid; place-items:center; border-radius:8px; background:rgba(255,255,255,0.02); color:var(--muted); text-decoration:none;}
+        .icon:hover{background:rgba(255,255,255,0.035); color:#fff;}
+
+        @media (max-width:780px){
+            .card{grid-template-columns:1fr; padding:18px;}
+            .aside{flex-direction:row; gap:12px; justify-content:space-between; align-items:center;}
+            .avatar{width:64px;height:64px;font-size:20px;}
+        }
+    </style>
+     <li><a href="offers.html"><i class="fas fa-home" aria-hidden="true"></i> Home</a></li>
+</head>
+<body>
+    <div class="wrap" role="main">
+        <div class="card" aria-label="Profile card">
+            <aside class="aside" aria-labelledby="profile-name">
+                <div class="avatar" aria-hidden="true">YN</div>
+                <div>
+                    <div id="profile-name" class="name">Your Name</div>
+                    <div class="role">Full‑Stack Developer</div>
+                </div>
+
+                <div class="contact" aria-label="Contact">
+                    <a href="mailto:you@example.com" title="Email">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2 7.5v9A2.5 2.5 0 0 0 4.5 19h15a2.5 2.5 0 0 0 2.5-2.5v-9" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        you@example.com
+                    </a>
+                    <a href="tel:+1234567890" title="Phone">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.86 19.86 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12 1.05.35 2.07.67 3.03a2 2 0 0 1-.45 2.11L8.09 10.91a16 16 0 0 0 6 6l1.05-1.05a2 2 0 0 1 2.11-.45c.96.32 1.98.55 3.03.67A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        +1 (234) 567‑890
+                    </a>
+                    <a class="btn" href="resume.pdf" download>Download Resume</a>
+                </div>
+
+                <div style="width:100%">
+                    <div class="skills" aria-label="Skills">
+                        <div class="skill">
+                            <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted)"><span>JavaScript</span><strong style="color:#fff">90%</strong></div>
+                            <div class="bar" aria-hidden="true"><div class="fill" style="width:90%"></div></div>
+                        </div>
+                        <div class="skill">
+                            <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted)"><span>HTML & CSS</span><strong style="color:#fff">95%</strong></div>
+                            <div class="bar"><div class="fill" style="width:95%"></div></div>
+                        </div>
+                        <div class="skill">
+                            <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted)"><span>Node.js</span><strong style="color:#fff">80%</strong></div>
+                            <div class="bar"><div class="fill" style="width:80%"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <main class="main">
+                <h2>About</h2>
+                <p class="lead">Product-minded developer building accessible web apps and tooling. Experienced with full stack JavaScript, performance optimizations, and component-driven UI. Interested in developer experience, systems design, and tiny delightful details.</p>
+
+                <section class="section" aria-labelledby="experience">
+                    <h2 id="experience">Experience</h2>
+                    <div class="list">
+                        <div class="item">
+                            <div>
+                                <div style="font-weight:700;color:#fff">Senior Engineer — Acme Co</div>
+                                <div class="meta">2021 — Present · Remote</div>
+                            </div>
+                            <div class="tags">
+                                <span class="tag">React</span>
+                                <span class="tag">Node</span>
+                                <span class="tag">SaaS</span>
+                            </div>
+                        </div>
+
+                        <div class="item">
+                            <div>
+                                <div style="font-weight:700;color:#fff">Frontend Engineer — Studio X</div>
+                                <div class="meta">2018 — 2021 · San Francisco</div>
+                            </div>
+                            <div class="tags">
+                                <span class="tag">UI</span>
+                                <span class="tag">Accessibility</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" aria-labelledby="projects">
+                    <h2 id="projects">Projects</h2>
+                    <div class="list">
+                        <div class="item">
+                            <div>
+                                <div style="font-weight:700;color:#fff">Project Atlas</div>
+                                <div class="meta">Open-source design system — github.com/you/atlas</div>
+                            </div>
+                            <div class="tags"><span class="tag">Design System</span></div>
+                        </div>
+
+                        <div class="item">
+                            <div>
+                                <div style="font-weight:700;color:#fff">CLI Toolkit</div>
+                                <div class="meta">Developer CLI for task automation</div>
+                            </div>
+                            <div class="tags"><span class="tag">Node</span></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" aria-labelledby="education">
+                    <h2 id="education">Education</h2>
+                    <div class="list">
+                        <div class="item">
+                            <div>
+                                <div style="font-weight:700;color:#fff">B.S. Computer Science</div>
+                                <div class="meta">University — 2014 — 2018</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <footer>
+                    <div class="meta">Available for freelance · Based in Your City</div>
+                    <div class="socials" aria-label="Social links">
+                        <a class="icon" href="#" title="GitHub" aria-hidden="false">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.58 2 12.14c0 4.5 2.87 8.31 6.84 9.66.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.71-2.78.61-3.37-1.37-3.37-1.37-.45-1.17-1.11-1.48-1.11-1.48-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.9 1.56 2.36 1.11 2.94.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.13-4.56-5.02 0-1.11.39-2.02 1.03-2.73-.1-.26-.45-1.3.1-2.71 0 0 .84-.27 2.75 1.03A9.2 9.2 0 0 1 12 6.8c.85.004 1.71.12 2.51.35 1.9-1.3 2.74-1.03 2.74-1.03.55 1.41.2 2.45.1 2.71.64.71 1.03 1.62 1.03 2.73 0 3.9-2.34 4.75-4.57 5.01.36.32.68.95.68 1.92 0 1.39-.01 2.51-.01 2.85 0 .26.18.58.69.48A10.16 10.16 0 0 0 22 12.14C22 6.58 17.52 2 12 2z" fill="currentColor"/></svg>
+                        </a>
+                        <a class="icon" href="#" title="LinkedIn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.78v1.63h.05c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.78 2.65 4.78 6.09V21h-4v-5.05c0-1.2-.02-2.76-1.68-2.76-1.68 0-1.94 1.31-1.94 2.66V21H9z" fill="currentColor"/></svg>
+                        </a>
+                        <a class="icon" href="#" title="Twitter">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 5.92c-.63.28-1.3.47-2 .55a3.5 3.5 0 0 0-6 2.4c0 .27.03.53.09.78A9.94 9.94 0 0 1 3 4.9a3.5 3.5 0 0 0 1.08 4.66c-.5-.02-.97-.15-1.38-.38v.04c0 1.62 1.15 2.97 2.68 3.28-.47.12-.97.13-1.46.05.41 1.28 1.6 2.22 3.01 2.25A7.02 7.02 0 0 1 2 18.57a9.92 9.92 0 0 0 5.38 1.58c6.45 0 9.98-5.6 9.98-10.46v-.48A7.04 7.04 0 0 0 22 5.92z" fill="currentColor"/></svg>
+                        </a>
+                    </div>
+                </footer>
+            </main>
+        </div>
+    </div>
+
+        <section class="gallery-and-form" aria-labelledby="gallery-heading">
+            <h2 id="gallery-heading">Gallery & Preferences</h2>
+
+            <figure class="gallery">
+                <a target="_blank" rel="noopener" href="img_5terre.jpg">
+                    <img src="img_5terre.jpg" alt="Cinque Terre landscape" loading="lazy" width="600" height="400">
+                </a>
+                <figcaption>Add a description of the image here</figcaption>
+            </figure>
+
+            <form class="preferences" aria-labelledby="preferences-heading">
+                <h3 id="preferences-heading">Select your country</h3>
+                <label for="country">Country</label>
+                <select id="country" name="country">
+                    <option value="" disabled selected>Choose...</option>
+                    <option value="au">Australia</option>
+                    <option value="ca">Canada</option>
+                    <option value="usa">USA</option>
+                </select>
+            </form>
+        </section>
+
+        <section id="members" class="team" aria-labelledby="team-heading">
+            <h2 id="team-heading">Team</h2>
+            <!-- Add member list or cards here -->
+            <p>Team information will be displayed here.</p>
+        </section>
+
+        <section id="contact" class="contact" aria-labelledby="contact-heading">
+            <h2 id="contact-heading">Contact Us</h2>
+            <p>For inquiries, use the sign-up form or email the organizers.</p>
+        </section>
+    </main>
+    <footer class="site-footer" aria-label="Footer" role="contentinfo">
+        <div class="footer-top" style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between;padding:1.5rem;border-top:1px solid #e6e6e6;">
+            <div class="footer-branding" style="display:flex;align-items:center;gap:.75rem;">
+                <!-- primary logo (same style as header) -->
+                <svg width="48" height="48" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                    <circle cx="50" cy="50" r="48" fill="#2b6cb0" />
+                    <text x="50" y="56" font-family="Poppins, sans-serif" font-size="44" fill="#fff" text-anchor="middle" dominant-baseline="middle">FM</text>
+                </svg>
+                <div>
+                    <strong class="brand-name" style="display:block;">FEEW‑MINDMELD</strong>
+                    <small style="color:#555;">Collaborative learning • Creativity • Problem solving</small>
+                </div>
+            </div>
+
+            <div class="footer-cta" style="display:flex;gap:.5rem;align-items:center;">
+                <a class="btn" href="FORM.html" style="padding:.5rem .75rem;background:#2b6cb0;color:#fff;border-radius:6px;text-decoration:none;" aria-label="Sign up to FEEW‑MINDMELD">Sign up</a>
+                <a href="FEEW 2.html" class="btn-link" style="padding:.45rem .65rem;border:1px solid #2b6cb0;border-radius:6px;color:#2b6cb0;text-decoration:none;">Home Page</a>
+            </div>
+        </div>
+
+        <div class="footer-middle" style="display:flex;flex-wrap:wrap;gap:1rem;padding:1rem 1.5rem;align-items:flex-start;">
+            <nav class="footer-links" aria-label="Footer navigation" style="display:flex;gap:2rem;flex:1;">
+                <div>
+                    <h4 style="margin:.25rem 0;">Explore</h4>
+                    <ul style="list-style:none;padding:0;margin:0;">
+                        <li><a href="FEEW 1.html">Home</a></li>
+                        <li><a href="#members">Team</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="FORM.html">Sign up</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 style="margin:.25rem 0;">Legal</h4>
+                    <ul style="list-style:none;padding:0;margin:0;">
+                        <li><a href="#" aria-label="Privacy Policy">Privacy Policy</a></li>
+                        <li><a href="#" aria-label="Terms of Service">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="footer-social" style="display:flex;flex-direction:column;gap:.5rem;align-items:flex-end;">
+                <div style="display:flex;gap:.5rem;align-items:center;">
+                    <span style="font-weight:600;">Follow us</span>
+                    <a href="https://twitter.com/" target="_blank" rel="noopener" aria-label="Twitter" style="color:inherit;text-decoration:none;margin-left:.5rem;">
+                        <i class="fab fa-twitter" aria-hidden="true" style="font-size:1.1rem;"></i>
+                    </a>
+                    <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook" style="color:inherit;text-decoration:none;">
+                        <i class="fab fa-facebook" aria-hidden="true" style="font-size:1.1rem;"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn" style="color:inherit;text-decoration:none;">
+                        <i class="fab fa-linkedin" aria-hidden="true" style="font-size:1.1rem;"></i>
+                    </a>
+                </div>
+
+                <div style="display:flex;gap:.5rem;align-items:center;">
+                    <a href="mailto:hello@feew-mindmeld.example" aria-label="Email FEEW‑MINDMELD" style="color:inherit;text-decoration:none;">
+                        <i class="fas fa-envelope" aria-hidden="true"></i> hello@feew-mindmeld.example
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-partners" style="padding:0 1.5rem 1rem;display:flex;gap:1rem;align-items:center;flex-wrap:wrap;">
+            <span style="font-size:.9rem;color:#555;">Trusted by</span>
+
+            <!-- simple inline partner logos (SVG) -->
+            <div style="display:flex;gap:.5rem;align-items:center;">
+                <svg width="72" height="28" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Partner A logo">
+                    <rect width="120" height="40" rx="6" fill="#edf2f7"></rect>
+                    <text x="16" y="26" font-family="Poppins, sans-serif" font-size="16" fill="#2b6cb0">Partner A</text>
+                </svg>
+
+                <svg width="72" height="28" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Partner B logo">
+                    <rect width="120" height="40" rx="6" fill="#f7fafc"></rect>
+                    <text x="16" y="26" font-family="Poppins, sans-serif" font-size="16" fill="#2c7a7b">Partner B</text>
+                </svg>
+            </div>
+        </div>
+
+        <div class="footer-bottom" style="border-top:1px solid #f0f0f0;padding:.75rem 1.5rem;text-align:center;color:#666;font-size:.9rem;">
+            <p style="margin:.25rem 0;">&copy; 2025 FEEW‑MINDMELD Collaboration Group — Computer Science Excellence. All rights reserved.</p>
+            <p style="margin:.25rem 0;">Built with <i class="fas fa-heart" aria-hidden="true" style="color:#e53e3e;"></i> by the FEEW community</p>
+        </div>
+    </footer></div></svg></div></a></div></a>
+
+    <script src="script.js" defer></script>
+</body>
+</html>

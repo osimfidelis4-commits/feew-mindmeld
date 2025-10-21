@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Dashboard</title>
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <style>
+        :root{
+            --bg:#f5f7fb;
+            --card:#ffffff;
+            --muted:#6b7280;
+            --accent:#3b82f6;
+            --soft:#eef2ff;
+            --text:#0f172a;
+            --glass: rgba(255,255,255,0.7);
+        }
+        [data-theme="dark"]{
+            --bg:#0b1220;
+            --card:#071025;
+            --muted:#9aa6b2;
+            --accent:#60a5fa;
+            --soft: rgba(255,255,255,0.03);
+            --text:#e6eef8;
+            --glass: rgba(255,255,255,0.03);
+        }
+
+        *{box-sizing:border-box}
+        html,body{height:100%}
+        body{
+            margin:0;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background:linear-gradient(180deg,var(--bg),var(--glass));
+            color:var(--text);
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+        }
+
+        .app{
+            display:grid;
+            grid-template-columns:260px 1fr;
+            gap:18px;
+            height:100vh;
+            padding:18px;
+        }
+
+        /* Sidebar */
+        .sidebar{
+            background:var(--card);
+            border-radius:12px;
+            padding:18px;
+            display:flex;
+            flex-direction:column;
+            gap:12px;
+            box-shadow:0 6px 18px rgba(12, 18, 30, 0.06);
+            min-height:0;
+        }
+        .brand{display:flex;align-items:center;gap:12px}
+        .logo{
+            width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#7c3aed);
+            display:flex;align-items:center;justify-content:center;color:white;font-weight:700;
+            box-shadow:0 4px 10px rgba(59,130,246,0.12);
+        }
+        .nav{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+        .nav a{
+            text-decoration:none;color:var(--muted);padding:10px;border-radius:8px;display:flex;gap:10px;align-items:center;font-weight:600;
+        }
+        .nav a.active{background:var(--soft);color:var(--text)}
+        .nav a:hover{background:var(--soft);color:var(--text)}
+
+        .sidebar .spacer{flex:1}
+
+        /* Main */
+        .main{
+            display:flex;
+            flex-direction:column;
+            gap:18px;
+            min-height:0;
+            overflow:auto;
+        }
+        .topbar{
+            display:flex;
+            justify-content:space-between;
+            gap:12px;
+            align-items:center;
+        }
+        .search{
+            display:flex;gap:12px;align-items:center;background:var(--card);padding:10px;border-radius:10px;flex:1;
+            box-shadow:0 4px 14px rgba(12,18,30,0.04);
+        }
+        .search input{border:0;background:transparent;outline:none;font-size:14px;color:var(--muted);width:100%}
+        .controls{display:flex;gap:8px;align-items:center}
+
+        /* Grid */
+        .grid{
+            display:grid;
+            grid-template-columns:repeat(12,1fr);
+            gap:16px;
+            align-items:start;
+        }
+        .card{
+            background:var(--card);border-radius:12px;padding:14px;box-shadow:0 6px 18px rgba(12,18,30,0.04);
+        }
+        .card.h-100{height:100%}
+        .col-3{grid-column:span 3}
+        .col-4{grid-column:span 4}
+        .col-5{grid-column:span 5}
+        .col-6{grid-column:span 6}
+        .col-7{grid-column:span 7}
+        .col-9{grid-column:span 9}
+        .col-12{grid-column:span 12}
+
+        .kpi{display:flex;justify-content:space-between;align-items:center}
+        .kpi .meta{display:flex;flex-direction:column}
+        .kpi .title{font-size:13px;color:var(--muted)}
+        .kpi .value{font-size:20px;font-weight:700;margin-top:6px}
+
+        .progress{
+            height:8px;background:linear-gradient(180deg,var(--soft),transparent);border-radius:999px;overflow:hidden;margin-top:8px;
+        }
+        .progress > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#7c3aed);width:40%}
+
+        /* table */
+        table{width:100%;border-collapse:collapse;font-size:13px}
+        thead th{color:var(--muted);text-align:left;padding:10px 8px;font-weight:700;border-bottom:1px solid rgba(0,0,0,0.04)}
+        tbody td{padding:12px 8px;border-bottom:1px dashed rgba(0,0,0,0.04);color:var(--muted)}
+
+        .small{font-size:12px;color:var(--muted)}
+        .chip{padding:6px 10px;border-radius:999px;background:var(--soft);font-weight:700;color:var(--accent);display:inline-block}
+
+        .activities{display:flex;flex-direction:column;gap:10px}
+        .activity{display:flex;gap:12px;align-items:flex-start}
+        .avatar{width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,#60a5fa,#7c3aed);display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
+
+        /* responsive */
+        @media (max-width:980px){
+            .app{grid-template-columns:1fr; padding:12px}
+            .col-3,.col-4,.col-5,.col-6,.col-7,.col-9{grid-column:span 12}
+            .sidebar{flex-direction:row;align-items:center;padding:12px;overflow:auto}
+            .nav{flex-direction:row}
+            .brand .name{display:none}
+        }
+
+    </style>
+     <li><a href="offers.html"><i class="fas fa-home" aria-hidden="true"></i> Home</a></li>
+</head>
+<body data-theme="light">
+    <div class="app" role="application" aria-label="Dashboard">
+        <aside class="sidebar" aria-label="Sidebar">
+            <div class="brand">
+                <div class="logo">D</div>
+                <div>
+                    <div style="font-weight:800">Project</div>
+                    <div class="small" style="margin-top:2px">Analytics</div>
+                </div>
+            </div>
+
+            <nav class="nav" role="navigation" aria-label="Main navigation">
+                <a href="#" class="active">Overview</a>
+                <a href="#">Reports</a>
+                <a href="#">Customers</a>
+                <a href="#">Settings</a>
+            </nav>
+
+            <div class="spacer"></div>
+
+            <div style="display:flex;gap:8px;align-items:center">
+                <div style="flex:1">
+                    <div class="small">Storage</div>
+                    <div style="display:flex;align-items:center;gap:10px;margin-top:8px">
+                        <div style="flex:1" class="progress" aria-hidden="true"><i style="width:58%"></i></div>
+                        <div class="small" style="min-width:48px;text-align:right">58%</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main" id="main">
+            <div class="topbar">
+                <div style="display:flex;gap:12px;flex:1">
+                    <div class="search" role="search" aria-label="Search">
+                        <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path stroke="#9aa6b2" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m21 21-4.35-4.35"></path><circle cx="11" cy="11" r="6" stroke="#9aa6b2" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/></svg>
+                        <input id="q" placeholder="Search reports, customers..." />
+                    </div>
+
+                    <div class="controls">
+                        <button id="themeToggle" title="Toggle theme" style="background:var(--card);border:0;padding:10px;border-radius:8px;cursor:pointer">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 12.5A8 8 0 1 1 11.5 4 6 6 0 0 0 20 12.5z" stroke="#6b7280" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+
+                        <div style="background:var(--card);padding:8px 12px;border-radius:10px;font-weight:700;color:var(--muted)">Acme Inc</div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="grid" aria-labelledby="overview">
+                <!-- KPI cards -->
+                <div class="card col-3">
+                    <div class="kpi">
+                        <div class="meta">
+                            <div class="title">Revenue</div>
+                            <div class="value">$24,210</div>
+                        </div>
+                        <div style="text-align:right">
+                            <div class="small">+8.4% vs last week</div>
+                            <div style="margin-top:6px" class="chip">$</div>
+                        </div>
+                    </div>
+                    <div class="progress" aria-hidden="true"><i style="width:72%"></i></div>
+                </div>
+
+                <div class="card col-3">
+                    <div class="kpi">
+                        <div class="meta">
+                            <div class="title">New Users</div>
+                            <div class="value">1,204</div>
+                        </div>
+                        <div style="text-align:right">
+                            <div class="small">+4.2% this month</div>
+                            <div style="margin-top:6px" class="chip">users</div>
+                        </div>
+                    </div>
+                    <div class="progress" aria-hidden="true"><i style="width:43%"></i></div>
+                </div>
+
+                <div class="card col-3">
+                    <div class="kpi">
+                        <div class="meta">
+                            <div class="title">Active Subscriptions</div>
+                            <div class="value">3,982</div>
+                        </div>
+                        <div style="text-align:right">
+                            <div class="small">Stable</div>
+                            <div style="margin-top:6px" class="chip">pro</div>
+                        </div>
+                    </div>
+                    <div class="progress" aria-hidden="true"><i style="width:61%"></i></div>
+                </div>
+
+                <div class="card col-3">
+                    <div class="kpi">
+                        <div class="meta">
+                            <div class="title">Conversion</div>
+                            <div class="value">2.7%</div>
+                        </div>
+                        <div style="text-align:right">
+                            <div class="small">-0.2% vs last</div>
+                            <div style="margin-top:6px" class="chip">rate</div>
+                        </div>
+                    </div>
+                    <div class="progress" aria-hidden="true"><i style="width:27%"></i></div>
+                </div>
+
+                <!-- Chart -->
+                <div class="card col-7" style="display:flex;flex-direction:column;gap:12px">
+                    <div style="display:flex;justify-content:space-between;align-items:center">
+                        <strong>Sales overview</strong>
+                        <div class="small">Last 30 days</div>
+                    </div>
+                    <canvas id="salesChart" height="140" aria-label="Sales chart" role="img"></canvas>
+                    <div style="display:flex;gap:8px;justify-content:flex-end">
+                        <div class="small">Revenue</div>
+                        <div style="width:12px;height:12px;background:var(--accent);border-radius:3px"></div>
+                        <div class="small">Subscriptions</div>
+                        <div style="width:12px;height:12px;background:#a78bfa;border-radius:3px"></div>
+                    </div>
+                </div>
+
+                <!-- Activity + Table -->
+                <div class="card col-5" style="display:flex;flex-direction:column;gap:12px">
+                    <div style="display:flex;justify-content:space-between;align-items:center">
+                        <strong>Recent activity</strong>
+                        <div class="small">Today</div>
+                    </div>
+
+                    <div class="activities" style="max-height:220px;overflow:auto">
+                        <div class="activity">
+                            <div class="avatar">AB</div>
+                            <div>
+                                <div style="font-weight:700">Anna Brown</div>
+                                <div class="small">Purchased Pro — $99</div>
+                            </div>
+                            <div style="margin-left:auto" class="small">2h ago</div>
+                        </div>
+
+                        <div class="activity">
+                            <div class="avatar">MG</div>
+                            <div>
+                                <div style="font-weight:700">Mark Green</div>
+                                <div class="small">Signed up for trial</div>
+                            </div>
+                            <div style="margin-left:auto" class="small">4h ago</div>
+                        </div>
+
+                        <div class="activity">
+                            <div class="avatar">LD</div>
+                            <div>
+                                <div style="font-weight:700">Lina Doe</div>
+                                <div class="small">Exported report</div>
+                            </div>
+                            <div style="margin-left:auto" class="small">6h ago</div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <strong style="display:block;margin-bottom:8px">Top customers</strong>
+                        <table aria-label="Top customers">
+                            <thead>
+                                <tr><th>Company</th><th>Spend</th><th>Status</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Acme Inc</td><td>$12,420</td><td><span class="chip">VIP</span></td></tr>
+                                <tr><td>Beta Co</td><td>$8,210</td><td><span class="chip">Pro</span></td></tr>
+                                <tr><td>Gamma LLC</td><td>$3,400</td><td><span class="chip">Starter</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Full-width report -->
+                <div class="card col-12">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+                        <strong>Orders</strong>
+                        <div class="small">Recent 7 orders</div>
+                    </div>
+
+                    <table aria-label="Orders">
+                        <thead>
+                            <tr><th>Order</th><th>Customer</th><th>Date</th><th>Amount</th><th>Status</th></tr>
+                        </thead>
+                        <tbody id="ordersBody">
+                            <!-- filled by JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Theme toggle
+        (function(){
+            const btn = document.getElementById('themeToggle');
+            const root = document.documentElement;
+            const stored = localStorage.getItem('theme');
+            if(stored) document.body.setAttribute('data-theme', stored);
+            btn.addEventListener('click', () => {
+                const current = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+                document.body.setAttribute('data-theme', current);
+                localStorage.setItem('theme', current);
+            });
+        })();
+
+        // Sample chart
+        const ctx = document.getElementById('salesChart').getContext('2d');
+        const salesChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: Array.from({length:30}, (_,i)=>`Day ${i+1}`),
+                datasets: [
+                    { label: 'Revenue', data: Array.from({length:30}, ()=>Math.round(5000 + Math.random()*15000)), borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.08)', tension:0.35, pointRadius:0 },
+                    { label: 'Subscriptions', data: Array.from({length:30}, ()=>Math.round(80 + Math.random()*220)), borderColor: '#a78bfa', backgroundColor: 'rgba(167,139,250,0.06)', tension:0.35, pointRadius:0 }
+                ]
+            },
+            options: {
+                plugins: { legend:{display:false} },
+                scales: {
+                    x: { grid: { display:false }, ticks:{maxTicksLimit:8, color: getComputedStyle(document.body).getPropertyValue('--muted') } },
+                    y: { grid: { color: 'rgba(0,0,0,0.04)' }, ticks:{ color: getComputedStyle(document.body).getPropertyValue('--muted') } }
+                },
+                maintainAspectRatio:false
+            }
+        });
+
+        // Sample orders table
+        (function populate(){
+            const orders = [
+                {id:'#1024', name:'Anna Brown', date:'2025-10-20', amount:'$99', status:'Paid'},
+                {id:'#1023', name:'Mark Green', date:'2025-10-20', amount:'$0', status:'Trial'},
+                {id:'#1022', name:'Lina Doe', date:'2025-10-19', amount:'$420', status:'Paid'},
+                {id:'#1021', name:'Samuel P', date:'2025-10-18', amount:'$1,200', status:'Refunded'},
+                {id:'#1020', name:'Beta Co', date:'2025-10-17', amount:'$8,210', status:'Paid'},
+                {id:'#1019', name:'Gamma LLC', date:'2025-10-16', amount:'$3,400', status:'Paid'}
+            ];
+            const tbody = document.getElementById('ordersBody');
+            tbody.innerHTML = orders.map(o=>`<tr>
+                <td style="font-weight:700">${o.id}</td>
+                <td>${o.name}</td>
+                <td class="small">${o.date}</td>
+                <td>${o.amount}</td>
+                <td><span class="small" style="font-weight:700;color:${o.status==='Paid'?'#059669': o.status==='Refunded'?'#ef4444':'#6b7280'}">${o.status}</span></td>
+            </tr>`).join('');
+        })();
+
+        // Lightweight search filter for orders (search by id or name)
+        document.getElementById('q').addEventListener('input', function(e){
+            const term = e.target.value.trim().toLowerCase();
+            const rows = document.querySelectorAll('#ordersBody tr');
+            rows.forEach(r=>{
+                const txt = r.innerText.toLowerCase();
+                r.style.display = term ? (txt.includes(term) ? '' : 'none') : '';
+            });
+        });
+    </script>
+    </body>
+                <figcaption>Add a description of the image here</figcaption>
+            </figure>
+
+            <form class="preferences" aria-labelledby="preferences-heading">
+                <h3 id="preferences-heading">Select your country</h3>
+                <label for="country">Country</label>
+                <select id="country" name="country">
+                    <option value="" disabled selected>Choose...</option>
+                    <option value="au">Australia</option>
+                    <option value="ca">Canada</option>
+                    <option value="usa">USA</option>
+                </select>
+            </form>
+        </section>
+
+        <section id="members" class="team" aria-labelledby="team-heading">
+            <h2 id="team-heading">Team</h2>
+            <!-- Add member list or cards here -->
+            <p>Team information will be displayed here.</p>
+        </section>
+
+        <section id="contact" class="contact" aria-labelledby="contact-heading">
+            <h2 id="contact-heading">Contact Us</h2>
+            <p>For inquiries, use the sign-up form or email the organizers.</p>
+        </section>
+    </main>
+    <footer class="site-footer" aria-label="Footer" role="contentinfo">
+        <div class="footer-top" style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between;padding:1.5rem;border-top:1px solid #e6e6e6;">
+            <div class="footer-branding" style="display:flex;align-items:center;gap:.75rem;">
+                <!-- primary logo (same style as header) -->
+                <svg width="48" height="48" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                    <circle cx="50" cy="50" r="48" fill="#2b6cb0" />
+                    <text x="50" y="56" font-family="Poppins, sans-serif" font-size="44" fill="#fff" text-anchor="middle" dominant-baseline="middle">FM</text>
+                </svg>
+                <div>
+                    <strong class="brand-name" style="display:block;">FEEW‑MINDMELD</strong>
+                    <small style="color:#555;">Collaborative learning • Creativity • Problem solving</small>
+                </div>
+            </div>
+
+            <div class="footer-cta" style="display:flex;gap:.5rem;align-items:center;">
+                <a class="btn" href="FORM.html" style="padding:.5rem .75rem;background:#2b6cb0;color:#fff;border-radius:6px;text-decoration:none;" aria-label="Sign up to FEEW‑MINDMELD">Sign up</a>
+                <a href="FEEW 2.html" class="btn-link" style="padding:.45rem .65rem;border:1px solid #2b6cb0;border-radius:6px;color:#2b6cb0;text-decoration:none;">Home Page</a>
+            </div>
+        </div>
+
+        <div class="footer-middle" style="display:flex;flex-wrap:wrap;gap:1rem;padding:1rem 1.5rem;align-items:flex-start;">
+            <nav class="footer-links" aria-label="Footer navigation" style="display:flex;gap:2rem;flex:1;">
+                <div>
+                    <h4 style="margin:.25rem 0;">Explore</h4>
+                    <ul style="list-style:none;padding:0;margin:0;">
+                        <li><a href="FEEW 1.html">Home</a></li>
+                        <li><a href="#members">Team</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="FORM.html">Sign up</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 style="margin:.25rem 0;">Legal</h4>
+                    <ul style="list-style:none;padding:0;margin:0;">
+                        <li><a href="#" aria-label="Privacy Policy">Privacy Policy</a></li>
+                        <li><a href="#" aria-label="Terms of Service">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="footer-social" style="display:flex;flex-direction:column;gap:.5rem;align-items:flex-end;">
+                <div style="display:flex;gap:.5rem;align-items:center;">
+                    <span style="font-weight:600;">Follow us</span>
+                    <a href="https://twitter.com/" target="_blank" rel="noopener" aria-label="Twitter" style="color:inherit;text-decoration:none;margin-left:.5rem;">
+                        <i class="fab fa-twitter" aria-hidden="true" style="font-size:1.1rem;"></i>
+                    </a>
+                    <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook" style="color:inherit;text-decoration:none;">
+                        <i class="fab fa-facebook" aria-hidden="true" style="font-size:1.1rem;"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn" style="color:inherit;text-decoration:none;">
+                        <i class="fab fa-linkedin" aria-hidden="true" style="font-size:1.1rem;"></i>
+                    </a>
+                </div>
+
+                <div style="display:flex;gap:.5rem;align-items:center;">
+                    <a href="mailto:hello@feew-mindmeld.example" aria-label="Email FEEW‑MINDMELD" style="color:inherit;text-decoration:none;">
+                        <i class="fas fa-envelope" aria-hidden="true"></i> hello@feew-mindmeld.example
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-partners" style="padding:0 1.5rem 1rem;display:flex;gap:1rem;align-items:center;flex-wrap:wrap;">
+            <span style="font-size:.9rem;color:#555;">Trusted by</span>
+
+            <!-- simple inline partner logos (SVG) -->
+            <div style="display:flex;gap:.5rem;align-items:center;">
+                <svg width="72" height="28" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Partner A logo">
+                    <rect width="120" height="40" rx="6" fill="#edf2f7"></rect>
+                    <text x="16" y="26" font-family="Poppins, sans-serif" font-size="16" fill="#2b6cb0">Partner A</text>
+                </svg>
+
+                <svg width="72" height="28" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Partner B logo">
+                    <rect width="120" height="40" rx="6" fill="#f7fafc"></rect>
+                    <text x="16" y="26" font-family="Poppins, sans-serif" font-size="16" fill="#2c7a7b">Partner B</text>
+                </svg>
+            </div>
+        </div>
+
+        <div class="footer-bottom" style="border-top:1px solid #f0f0f0;padding:.75rem 1.5rem;text-align:center;color:#666;font-size:.9rem;">
+            <p style="margin:.25rem 0;">&copy; 2025 FEEW‑MINDMELD Collaboration Group — Computer Science Excellence. All rights reserved.</p>
+            <p style="margin:.25rem 0;">Built with <i class="fas fa-heart" aria-hidden="true" style="color:#e53e3e;"></i> by the FEEW community</p>
+        </div>
+    </footer></div></svg></div></a></div></a>
+
+    <script src="script.js" defer></script>
+</body>
+</html>

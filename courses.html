@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Programming Courses & Tools</title>
+    <style>
+        :root{font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;line-height:1.5;color:#0b0b0b}
+        body{max-width:980px;margin:28px auto;padding:20px}
+        header h1{margin:0 0 6px;font-size:1.8rem}
+        header p{margin:0 0 18px;color:#444}
+        nav{margin-bottom:18px}
+        nav a{margin-right:12px;color:#0366d6;text-decoration:none}
+        section{margin-bottom:20px;padding:14px;border:1px solid #e1e4e8;border-radius:8px;background:#fff}
+        h2{margin:0 0 10px;font-size:1.2rem}
+        .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+        .card{padding:10px;border-radius:6px;background:#f8fafc;border:1px solid #e6eef6}
+        ul{margin:8px 0 0 18px}
+        .meta{font-size:.9rem;color:#555;margin-top:6px}
+        footer{margin-top:18px;font-size:.85rem;color:#666}
+        @media (prefers-color-scheme:dark){
+            :root{color:#e6edf3;background:#0b1220}
+            body{background:transparent}
+            section{border-color:#122031;background:#071021}
+            .card{background:#08121b;border-color:#123046}
+            nav a{color:#66b0ff}
+        }
+    </style>
+     <li><a href="offers.html"><i class="fas fa-home" aria-hidden="true"></i> Home</a></li>
+</head>
+<body>
+    <header>
+        <h1>Programming Courses & Tools</h1>
+        <p>Concise, practical course outlines and recommended tools to build skills across web, backend, data, and DevOps.</p>
+    </header>
+
+    <nav aria-label="Quick links">
+        <a href="#beginner">Beginner</a>
+        <a href="#web">Web Development</a>
+        <a href="#backend">Backend & APIs</a>
+        <a href="#data">Data & ML</a>
+        <a href="#devops">DevOps & Tools</a>
+    </nav>
+
+    <main>
+        <section id="beginner" aria-labelledby="beginner-title">
+            <h2 id="beginner-title">Beginner Path</h2>
+            <div class="grid">
+                <div class="card">
+                    <strong>Intro to Programming (Python)</strong>
+                    <div class="meta">Duration: 6 weeks • Prereq: none</div>
+                    <ul>
+                        <li>Syntax, variables, control flow</li>
+                        <li>Functions, modules, file I/O</li>
+                        <li>Small projects: calculator, text parser</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <strong>Web Fundamentals (HTML & CSS)</strong>
+                    <div class="meta">Duration: 4 weeks • Prereq: none</div>
+                    <ul>
+                        <li>Semantic HTML, responsive layout, accessibility</li>
+                        <li>CSS basics, Flexbox, Grid</li>
+                        <li>Project: personal portfolio site</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <strong>Version Control (Git)</strong>
+                    <div class="meta">Duration: 1–2 weeks • Prereq: none</div>
+                    <ul>
+                        <li>Commits, branches, merge, remote workflows</li>
+                        <li>Using GitHub/GitLab</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="web" aria-labelledby="web-title">
+            <h2 id="web-title">Web Development</h2>
+            <div class="grid">
+                <div class="card">
+                    <strong>Frontend: JavaScript & Frameworks</strong>
+                    <div class="meta">Duration: 8–10 weeks • Prereq: HTML/CSS</div>
+                    <ul>
+                        <li>Vanilla JS: DOM, async, fetch</li>
+                        <li>Framework focus: React (or Vue/Svelte)</li>
+                        <li>State management, routing, testing</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <strong>Full-Stack Project</strong>
+                    <div class="meta">Duration: 6–8 weeks • Prereq: frontend + backend basics</div>
+                    <ul>
+                        <li>Build CRUD app with frontend + REST/GraphQL API</li>
+                        <li>Deploy to a cloud provider (Netlify, Vercel, or similar)</li>
+                        <li>CI, environment variables, basic security</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="backend" aria-labelledby="backend-title">
+            <h2 id="backend-title">Backend & APIs</h2>
+            <div class="grid">
+                <div class="card">
+                    <strong>Node.js / Express</strong>
+                    <div class="meta">Duration: 4–6 weeks • Prereq: JS basics</div>
+                    <ul>
+                        <li>Routing, middleware, authentication</li>
+                        <li>Database integration (MongoDB/Postgres)</li>
+                        <li>Testing and error handling</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <strong>Python (Flask / FastAPI)</strong>
+                    <div class="meta">Duration: 4–6 weeks • Prereq: Python basics</div>
+                    <ul>
+                        <li>REST APIs, async (FastAPI), validation</li>
+                        <li>ORM usage, migrations, role-based auth</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="data" aria-labelledby="data-title">
+            <h2 id="data-title">Data & Machine Learning</h2>
+            <div class="grid">
+                <div class="card">
+                    <strong>Data Engineering Essentials</strong>
+                    <div class="meta">Duration: 6 weeks</div>
+                    <ul>
+                        <li>ETL basics, SQL, data warehousing concepts</li>
+                        <li>Streaming vs batch, basic pipelines</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <strong>Intro to ML with Python</strong>
+                    <div class="meta">Duration: 8 weeks • Prereq: Python, math basics</div>
+                    <ul>
+                        <li>NumPy, pandas, scikit-learn</li>
+                        <li>Model evaluation, simple pipelines</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="devops" aria-labelledby="devops-title">
+            <h2 id="devops-title">DevOps & Tools</h2>
+            <div class="grid">
+                <div class="card">
+                    <strong>Essential Tools</strong>
+                    <ul>
+                        <li>Editor/IDE: VS Code, JetBrains</li>
+                        <li>Version Control: Git + GitHub/GitLab</li>
+                        <li>Containerization: Docker</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <strong>CI/CD & Deployment</strong>
+                    <ul>
+                        <li>CI: GitHub Actions, GitLab CI</li>
+                        <li>Cloud: Vercel, Netlify, AWS/GCP/Azure basics</li>
+                        <li>Infrastructure as Code: Terraform (intro)</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <strong>Observability & Testing</strong>
+                    <ul>
+                        <li>Testing: unit, integration, end-to-end</li>
+                        <li>Monitoring: basic logging and metrics (Prometheus/Cloud)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section aria-labelledby="learning-title">
+            <h2 id="learning-title">Learning Tips & Suggested Plan</h2>
+            <ul>
+                <li>Start small: build projects to solidify each concept.</li>
+                <li>Practice consistently and use version control for every project.</li>
+                <li>Combine theory with hands-on (tests, deployments, debugging).</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <div>Generated course outlines — adapt durations and topics to your goals.</div>
+    </footer>
+
+        <section class="gallery-and-form" aria-labelledby="gallery-heading">
+            <h2 id="gallery-heading">Gallery & Preferences</h2>
+            <figure class="gallery">
+                <a target="_blank" rel="noopener" href="img_5terre.jpg">
+                    <img src="img_5terre.jpg" alt="Cinque Terre landscape" loading="lazy" width="600" height="400">
+                </a>
+                <figcaption>Add a description of the image here</figcaption>
+            </figure>
+
+            <form class="preferences" aria-labelledby="preferences-heading">
+                <h3 id="preferences-heading">Select your country</h3>
+                <label for="country">Country</label>
+                <select id="country" name="country">
+                    <option value="" disabled selected>Choose...</option>
+                    <option value="au">Australia</option>
+                    <option value="ca">Canada</option>
+                    <option value="usa">USA</option>
+                </select>
+            </form>
+        </section>
+
+        <section id="members" class="team" aria-labelledby="team-heading">
+            <h2 id="team-heading">Team</h2>
+            <!-- Add member list or cards here -->
+            <p>Team information will be displayed here.</p>
+        </section>
+
+        <section id="contact" class="contact" aria-labelledby="contact-heading">
+            <h2 id="contact-heading">Contact Us</h2>
+            <p>For inquiries, use the sign-up form or email the organizers.</p>
+        </section>
+    </main>
+    <footer class="site-footer" aria-label="Footer" role="contentinfo">
+        <div class="footer-top" style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between;padding:1.5rem;border-top:1px solid #e6e6e6;">
+            <div class="footer-branding" style="display:flex;align-items:center;gap:.75rem;">
+                <!-- primary logo (same style as header) -->
+                <svg width="48" height="48" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                    <circle cx="50" cy="50" r="48" fill="#2b6cb0" />
+                    <text x="50" y="56" font-family="Poppins, sans-serif" font-size="44" fill="#fff" text-anchor="middle" dominant-baseline="middle">FM</text>
+                </svg>
+                <div>
+                    <strong class="brand-name" style="display:block;">FEEW‑MINDMELD</strong>
+                    <small style="color:#555;">Collaborative learning • Creativity • Problem solving</small>
+                </div>
+            </div>
+
+            <div class="footer-cta" style="display:flex;gap:.5rem;align-items:center;">
+                <a class="btn" href="FORM.html" style="padding:.5rem .75rem;background:#2b6cb0;color:#fff;border-radius:6px;text-decoration:none;" aria-label="Sign up to FEEW‑MINDMELD">Sign up</a>
+                <a href="FEEW 2.html" class="btn-link" style="padding:.45rem .65rem;border:1px solid #2b6cb0;border-radius:6px;color:#2b6cb0;text-decoration:none;">Home Page</a>
+            </div>
+        </div>
+
+        <div class="footer-middle" style="display:flex;flex-wrap:wrap;gap:1rem;padding:1rem 1.5rem;align-items:flex-start;">
+            <nav class="footer-links" aria-label="Footer navigation" style="display:flex;gap:2rem;flex:1;">
+                <div>
+                    <h4 style="margin:.25rem 0;">Explore</h4>
+                    <ul style="list-style:none;padding:0;margin:0;">
+                        <li><a href="FEEW 1.html">Home</a></li>
+                        <li><a href="#members">Team</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="FORM.html">Sign up</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 style="margin:.25rem 0;">Legal</h4>
+                    <ul style="list-style:none;padding:0;margin:0;">
+                        <li><a href="#" aria-label="Privacy Policy">Privacy Policy</a></li>
+                        <li><a href="#" aria-label="Terms of Service">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="footer-social" style="display:flex;flex-direction:column;gap:.5rem;align-items:flex-end;">
+                <div style="display:flex;gap:.5rem;align-items:center;">
+                    <span style="font-weight:600;">Follow us</span>
+                    <a href="https://twitter.com/" target="_blank" rel="noopener" aria-label="Twitter" style="color:inherit;text-decoration:none;margin-left:.5rem;">
+                        <i class="fab fa-twitter" aria-hidden="true" style="font-size:1.1rem;"></i>
+                    </a>
+                    <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook" style="color:inherit;text-decoration:none;">
+                        <i class="fab fa-facebook" aria-hidden="true" style="font-size:1.1rem;"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn" style="color:inherit;text-decoration:none;">
+                        <i class="fab fa-linkedin" aria-hidden="true" style="font-size:1.1rem;"></i>
+                    </a>
+                </div>
+
+                <div style="display:flex;gap:.5rem;align-items:center;">
+                    <a href="mailto:hello@feew-mindmeld.example" aria-label="Email FEEW‑MINDMELD" style="color:inherit;text-decoration:none;">
+                        <i class="fas fa-envelope" aria-hidden="true"></i> hello@feew-mindmeld.example
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-partners" style="padding:0 1.5rem 1rem;display:flex;gap:1rem;align-items:center;flex-wrap:wrap;">
+            <span style="font-size:.9rem;color:#555;">Trusted by</span>
+
+            <!-- simple inline partner logos (SVG) -->
+            <div style="display:flex;gap:.5rem;align-items:center;">
+                <svg width="72" height="28" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Partner A logo">
+                    <rect width="120" height="40" rx="6" fill="#edf2f7"></rect>
+                    <text x="16" y="26" font-family="Poppins, sans-serif" font-size="16" fill="#2b6cb0">Partner A</text>
+                </svg>
+
+                <svg width="72" height="28" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Partner B logo">
+                    <rect width="120" height="40" rx="6" fill="#f7fafc"></rect>
+                    <text x="16" y="26" font-family="Poppins, sans-serif" font-size="16" fill="#2c7a7b">Partner B</text>
+                </svg>
+            </div>
+        </div>
+
+        <div class="footer-bottom" style="border-top:1px solid #f0f0f0;padding:.75rem 1.5rem;text-align:center;color:#666;font-size:.9rem;">
+            <p style="margin:.25rem 0;">&copy; 2025 FEEW‑MINDMELD Collaboration Group — Computer Science Excellence. All rights reserved.</p>
+            <p style="margin:.25rem 0;">Built with <i class="fas fa-heart" aria-hidden="true" style="color:#e53e3e;"></i> by the FEEW community</p>
+        </div>
+    </footer></div></svg></div></a></div></a>
+
+    <script src="script.js" defer></script>
+</body>
+</html>
